@@ -1,0 +1,79 @@
+﻿@functions
+{
+    string getColorNotas(double nota)
+    {
+        if(nota < 6)
+        {
+            return "table-danger";
+        }else if(nota == 6 || nota < 7)
+        {
+            return "table-warning";
+        }else
+            return "table-success";
+    }
+}
+<div class="container">
+    <div class="row mb-3">
+        <div class="col">
+            <div class="input-group w-50">
+                <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16"> <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5ZM8 8.46 1.758 5.965 8 3.052l6.242 2.913L8 8.46Z" /> <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46l-3.892-1.556Z" /> </svg> </span> <input class="form-control" padding-left=20 type="text" value="App Escola" aria-label="Disabled input example" disabled readonly>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <h1 class="h2 my-1">#1 Willian Sant Anna</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="row p-">
+        <div class="col">
+            <h5>31/08/90 <span style="color:gray;">(32 anos)</span><span style="color:White;">" + textvariable + "</span></h5/>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Matéria</th>
+            <th scope="col">1º</th>
+            <th scope="col">2º</th>
+            <th scope="col">3º</th>
+            <th scope="col">4º</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model.Materias)
+            {
+                string notas = "";
+
+                switch (item.Status)
+                {
+                    case "Reprovado":
+                        notas = "table-danger";
+                        break;
+                    case "Recuperação":
+                        notas = "table-warning";
+                        break;
+                    case "Aprovado":
+                        notas = "table-success";
+                        break;
+                }
+                <tr>                    
+                    <td>@item.Descricao</td>
+                    <td class="@getColorNotas(@item.PrimeiroSemestre)">@item.PrimeiroSemestre</td>
+                    <td class="@getColorNotas(@item.SegundoSemestre)">@item.SegundoSemestre</td>
+                    <td class="@getColorNotas(@item.TerceiroSemestre)">@item.TerceiroSemestre</td>
+                    <td class="@getColorNotas(@item.QuartoSemestre)">@item.QuartoSemestre</td>
+                    <td class="@notas">@item.Status</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
